@@ -19,6 +19,9 @@ module.exports = {
       fontFamily: {
         sans: 'Poppins, sans-serif',
         sigmar: 'Sigmar One, cursive'
+      },
+      backgroundImage: {
+        'presentation-cover': 'linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/presentation-cover.jpg")'
       }
     },
   },
