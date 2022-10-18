@@ -5,6 +5,9 @@ module.exports = {
     './index.html'
   ],
   theme: {
+    screens: {
+      'sm': { max: '375px' }
+    },
     fontSize: {
       xs: 10,
       sm: 12,
@@ -22,6 +25,9 @@ module.exports = {
       },
       backgroundImage: {
         'presentation-cover': 'linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/presentation-cover.jpg")'
+      },
+      colors: {
+        'black-transparent': 'rgba(0, 0, 0, 0.75)'
       }
     },
   },

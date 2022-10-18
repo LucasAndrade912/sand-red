@@ -1,11 +1,16 @@
-import React from 'react'
-import { FacebookLogo, LinkedinLogo, InstagramLogo, TwitterLogo } from 'phosphor-react'
+import { useState, useEffect } from 'react'
+import { FacebookLogo, LinkedinLogo, InstagramLogo, TwitterLogo, List } from 'phosphor-react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import './styles/global.css'
 
+import { Overlay } from './components/Overlay'
+
 export function App() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 375)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   const settings = {
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -18,13 +23,47 @@ export function App() {
     cssEase: 'linear'
   }
 
+  function handleOpenMobileMenu() {
+    if (isMobile) {
+      setIsMenuOpen(true)
+    }
+  }
+
+  function handleCloseMobileMenu() {
+    setIsMenuOpen(false)
+  }
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 375)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <>
-      <header className="w-full flex items-center justify-between relative">
-        <h1 className="font-sigmar text-3xl">SandRed</h1>
+      <header className="w-full flex sm:flex-row-reverse items-center justify-between relative">
+        <div className="flex items-center gap-3">
+          <span className="hidden sm:block">
+            <img src="/sand-red-logo.svg" alt="SandRed Logo" className="h-10" />
+          </span>
 
-        <nav>
-          <ul className="flex gap-10">
+          <h1 className="font-sigmar text-3xl sm:text-2xl">
+            SandRed
+          </h1>
+        </div>
+
+        <List className="hidden sm:block w-8 h-8" onClick={handleOpenMobileMenu} />
+
+        { isMobile && isMenuOpen && <Overlay onClick={handleCloseMobileMenu} /> }
+
+        <nav
+          className={`transition-all sm:fixed sm:p-8 sm:z-20 sm:bg-zinc-700 sm:top-0 sm:w-[65vw] sm:h-screen sm:text-white ${isMenuOpen ? 'left-0' : '-left-[100vw]'}`}
+        >
+          <ul className="flex gap-10 sm:gap-0 sm:flex-col sm:justify-between sm:h-full">
             <li>
               <a href="#" className="hover:underline">Home</a>
             </li>
